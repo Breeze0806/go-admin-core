@@ -6,7 +6,7 @@ require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/bitly/go-simplejson v0.5.0
 	github.com/bytedance/go-tagexpr/v2 v2.7.12
-	github.com/casbin/casbin/v2 v2.54.0
+	github.com/casbin/casbin/v2 v2.47.2
 	github.com/fsnotify/fsnotify v1.4.9
 	github.com/ghodss/yaml v1.0.0
 	github.com/gin-gonic/gin v1.7.7
