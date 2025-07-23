@@ -42,4 +42,3 @@ type Messager interface {
 }
 
 type ConsumerFunc func(Messager) error
-

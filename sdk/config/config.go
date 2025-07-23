@@ -52,7 +52,6 @@ type Config struct {
 	Gen         *Gen                  `yaml:"gen"`
 	Cache       *Cache                `yaml:"cache"`
 	Queue       *Queue                `yaml:"queue"`
-	Locker      *Locker               `yaml:"locker"`
 	Extend      interface{}           `yaml:"extend"`
 }
 
@@ -80,7 +79,6 @@ func Setup(s source.Source,
 			Gen:         GenConfig,
 			Cache:       CacheConfig,
 			Queue:       QueueConfig,
-			Locker:      LockerConfig,
 			Extend:      ExtendConfig,
 		},
 		callbacks: fs,

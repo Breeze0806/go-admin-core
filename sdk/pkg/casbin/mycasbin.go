@@ -3,12 +3,12 @@ package mycasbin
 import (
 	"sync"
 
+	"github.com/Breeze0806/go-admin-core/logger"
+	"github.com/Breeze0806/go-admin-core/sdk"
 	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/log"
 	"github.com/casbin/casbin/v2/model"
-	"github.com/Breeze0806/go-admin-core/logger"
-	"github.com/Breeze0806/go-admin-core/sdk"
-	"github.com/Breeze0806/go-admin-core/sdk/config"
+
 	"gorm.io/gorm"
 )
 

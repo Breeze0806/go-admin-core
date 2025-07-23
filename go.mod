@@ -61,7 +61,7 @@ require (
 	github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d // indirect
 	github.com/ugorji/go/codec v1.1.7 // indirect
 	golang.org/x/image v0.0.0-20210220032944-ac19c3e999fb // indirect
-	golang.org/x/sys  v0.0.0-20220412211240-33da011f77ad // indirect
-	google.golang.org/protobuf v1.26.0-rc.1// indirect
+	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad // indirect
+	google.golang.org/protobuf v1.26.0-rc.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
