@@ -51,10 +51,6 @@ type Runtime interface {
 	GetQueueAdapter() storage.AdapterQueue
 	GetQueuePrefix(string) storage.AdapterQueue
 
-	SetLockerAdapter(storage.AdapterLocker)
-	GetLockerAdapter() storage.AdapterLocker
-	GetLockerPrefix(string) storage.AdapterLocker
-
 	SetHandler(key string, routerGroup func(r *gin.RouterGroup, hand ...*gin.HandlerFunc))
 	GetHandler() map[string][]func(r *gin.RouterGroup, hand ...*gin.HandlerFunc)
 	GetHandlerPrefix(key string) []func(r *gin.RouterGroup, hand ...*gin.HandlerFunc)

@@ -6,14 +6,10 @@ import (
 	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/log"
 	"github.com/casbin/casbin/v2/model"
-	redisWatcher "github.com/casbin/redis-watcher/v2"
 	"github.com/go-admin-team/go-admin-core/logger"
 	"github.com/go-admin-team/go-admin-core/sdk"
 	"github.com/go-admin-team/go-admin-core/sdk/config"
-	"github.com/go-redis/redis/v8"
 	"gorm.io/gorm"
-
-	gormAdapter "github.com/go-admin-team/gorm-adapter/v3"
 )
 
 // Initialize the model from a string.
@@ -38,7 +34,7 @@ var (
 
 func Setup(db *gorm.DB, _ string) *casbin.SyncedEnforcer {
 	once.Do(func() {
-		Apter, err := gormAdapter.NewAdapterByDBUseTableName(db, "sys", "casbin_rule")
+		Apter, err := NewAdapterByDBUseTableName(db, "sys", "casbin_rule")
 		if err != nil && err.Error() != "invalid DDL" {
 			panic(err)
 		}
@@ -54,29 +50,6 @@ func Setup(db *gorm.DB, _ string) *casbin.SyncedEnforcer {
 		err = enforcer.LoadPolicy()
 		if err != nil {
 			panic(err)
-		}
-		// set redis watcher if redis config is not nil
-		if config.CacheConfig.Redis != nil {
-			w, err := redisWatcher.NewWatcher(config.CacheConfig.Redis.Addr, redisWatcher.WatcherOptions{
-				Options: redis.Options{
-					Network:  "tcp",
-					Password: config.CacheConfig.Redis.Password,
-				},
-				Channel:    "/casbin",
-				IgnoreSelf: false,
-			})
-			if err != nil {
-				panic(err)
-			}
-
-			err = w.SetUpdateCallback(updateCallback)
-			if err != nil {
-				panic(err)
-			}
-			err = enforcer.SetWatcher(w)
-			if err != nil {
-				panic(err)
-			}
 		}
 
 		log.SetLogger(&Logger{})

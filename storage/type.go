@@ -2,8 +2,6 @@ package storage
 
 import (
 	"time"
-
-	"github.com/bsm/redislock"
 )
 
 const (
@@ -45,7 +43,3 @@ type Messager interface {
 
 type ConsumerFunc func(Messager) error
 
-type AdapterLocker interface {
-	String() string
-	Lock(key string, ttl int64, options *redislock.Options) (*redislock.Lock, error)
-}

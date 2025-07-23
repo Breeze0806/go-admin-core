@@ -7,8 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/robinjoseph08/redisqueue/v2"
-
 	"github.com/go-admin-team/go-admin-core/storage"
 )
 
@@ -34,7 +32,7 @@ func TestMemory_Append(t *testing.T) {
 			fields{},
 			args{
 				name: "test",
-				message: &Message{redisqueue.Message{
+				message: &Message{storage.Message{
 					ID:     "",
 					Stream: "test",
 					Values: map[string]interface{}{
@@ -88,7 +86,7 @@ func TestMemory_Register(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			m := NewMemory(100)
 			m.Register(tt.name, tt.args.f)
-			if err := m.Append(&Message{redisqueue.Message{
+			if err := m.Append(&Message{storage.Message{
 				ID:     "",
 				Stream: "test",
 				Values: map[string]interface{}{

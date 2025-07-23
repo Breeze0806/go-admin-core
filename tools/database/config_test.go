@@ -1,9 +1,10 @@
 package database
 
 import (
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"testing"
+
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 var dsn0 = "dsn0"
@@ -55,7 +56,7 @@ func TestDBConfig_Init(t *testing.T) {
 			},
 			args{
 				config: &gorm.Config{},
-				open:   mysql.Open,
+				open:   sqlite.Open,
 			},
 			false,
 		},
@@ -71,7 +72,7 @@ func TestDBConfig_Init(t *testing.T) {
 			},
 			args{
 				config: &gorm.Config{},
-				open:   mysql.Open,
+				open:   sqlite.Open,
 			},
 			false,
 		},

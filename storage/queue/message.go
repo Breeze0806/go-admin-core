@@ -1,13 +1,11 @@
 package queue
 
 import (
-	"github.com/robinjoseph08/redisqueue/v2"
-
 	"github.com/go-admin-team/go-admin-core/storage"
 )
 
 type Message struct {
-	redisqueue.Message
+	storage.Message
 	ErrorCount int
 }
 
