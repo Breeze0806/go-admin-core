@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	dlog "github.com/go-admin-team/go-admin-core/debug/log"
+	dlog "github.com/Breeze0806/go-admin-core/debug/log"
 )
 
 func init() {

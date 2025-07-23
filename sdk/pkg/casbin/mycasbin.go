@@ -6,9 +6,9 @@ import (
 	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/log"
 	"github.com/casbin/casbin/v2/model"
-	"github.com/go-admin-team/go-admin-core/logger"
-	"github.com/go-admin-team/go-admin-core/sdk"
-	"github.com/go-admin-team/go-admin-core/sdk/config"
+	"github.com/Breeze0806/go-admin-core/logger"
+	"github.com/Breeze0806/go-admin-core/sdk"
+	"github.com/Breeze0806/go-admin-core/sdk/config"
 	"gorm.io/gorm"
 )
 

@@ -4,11 +4,11 @@ import (
 	"io"
 	"os"
 
-	"github.com/go-admin-team/go-admin-core/debug/writer"
-	"github.com/go-admin-team/go-admin-core/logger"
-	"github.com/go-admin-team/go-admin-core/sdk/pkg"
+	"github.com/Breeze0806/go-admin-core/debug/writer"
+	"github.com/Breeze0806/go-admin-core/logger"
+	"github.com/Breeze0806/go-admin-core/sdk/pkg"
 
-	log "github.com/go-admin-team/go-admin-core/logger"
+	log "github.com/Breeze0806/go-admin-core/logger"
 )
 
 // SetupLogger 日志 cap 单位为kb
