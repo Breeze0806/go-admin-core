@@ -3,9 +3,9 @@ package config
 import (
 	"fmt"
 	"log"
+	"os"
 
-	"github.com/Breeze0806/go-admin-core/config"
-	"github.com/Breeze0806/go-admin-core/config/source"
+	"gopkg.in/yaml.v2"
 )
 
 var (
@@ -19,15 +19,21 @@ type Settings struct {
 	callbacks []func()
 }
 
+func (e *Settings) LoadFile(configYml string) (err error) {
+	var d []byte
+	if d, err = os.ReadFile(configYml); err != nil {
+		return
+	}
+	if err = yaml.Unmarshal(d, e); err != nil {
+		return
+	}
+	return
+}
+
 func (e *Settings) runCallback() {
 	for i := range e.callbacks {
 		e.callbacks[i]()
 	}
-}
-
-func (e *Settings) OnChange() {
-	e.init()
-	log.Println("!!! config change and reload")
 }
 
 func (e *Settings) Init() {
@@ -66,7 +72,7 @@ func (e *Config) multiDatabase() {
 }
 
 // Setup 载入配置文件
-func Setup(s source.Source,
+func Setup(configYml string,
 	fs ...func()) {
 	_cfg = &Settings{
 		Settings: Config{
@@ -83,11 +89,8 @@ func Setup(s source.Source,
 		},
 		callbacks: fs,
 	}
-	var err error
-	config.DefaultConfig, err = config.NewConfig(
-		config.WithSource(s),
-		config.WithEntity(_cfg),
-	)
+
+	err := _cfg.LoadFile(configYml)
 	if err != nil {
 		log.Fatal(fmt.Sprintf("New config object fail: %s", err.Error()))
 	}
