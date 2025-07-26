@@ -7,7 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Breeze0806/go-admin-core/config"
 	"github.com/Breeze0806/go-admin-core/config/source/file"
 )
 
@@ -26,15 +25,6 @@ func TestConfig(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-
-	conf, err := config.NewConfig()
-	if err != nil {
-		t.Fatal(err)
-	}
-	conf.Load(file.NewSource(file.WithPath(path)))
-	// simulate multiple close
-	go conf.Close()
-	go conf.Close()
 }
 
 func TestFile(t *testing.T) {

@@ -86,7 +86,6 @@ func Setup(s source.Source,
 	var err error
 	config.DefaultConfig, err = config.NewConfig(
 		config.WithSource(s),
-		config.WithEntity(_cfg),
 	)
 	if err != nil {
 		log.Fatal(fmt.Sprintf("New config object fail: %s", err.Error()))

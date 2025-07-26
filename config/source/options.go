@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/Breeze0806/go-admin-core/config/encoder"
-	"github.com/Breeze0806/go-admin-core/config/encoder/json"
 )
 
 type Options struct {
@@ -19,7 +18,6 @@ type Option func(o *Options)
 
 func NewOptions(opts ...Option) Options {
 	options := Options{
-		Encoder: json.NewEncoder(),
 		Context: context.Background(),
 	}
 
