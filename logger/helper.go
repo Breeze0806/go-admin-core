@@ -112,3 +112,17 @@ func (h *Helper) WithFields(fields map[string]interface{}) *Helper {
 	}
 	return &Helper{Logger: h.Logger, fields: nfields}
 }
+
+func (h *Helper) Print(args ...interface{}) {
+	if !h.Logger.Options().Level.Enabled(TraceLevel) {
+		return
+	}
+	h.Logger.Fields(h.fields).Log(TraceLevel, args...)
+}
+
+func (h *Helper) Printf(template string, args ...interface{}) {
+	if !h.Logger.Options().Level.Enabled(TraceLevel) {
+		return
+	}
+	h.Logger.Fields(h.fields).Logf(TraceLevel, template, args...)
+}
