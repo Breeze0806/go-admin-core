@@ -1,14 +1,14 @@
 package runtime
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
 
-	"github.com/casbin/casbin/v2"
-	"github.com/Breeze0806/go-admin-core/logger"
-	"github.com/Breeze0806/go-admin-core/storage"
+	"github.com/gin-gonic/gin"
 	"github.com/robfig/cron/v3"
 	"gorm.io/gorm"
+
+	"github.com/Breeze0806/go-admin-core/logger"
+	"github.com/Breeze0806/go-admin-core/storage"
 )
 
 type Runtime interface {
@@ -16,10 +16,6 @@ type Runtime interface {
 	SetDb(key string, db *gorm.DB)
 	GetDb() map[string]*gorm.DB
 	GetDbByKey(key string) *gorm.DB
-
-	SetCasbin(key string, enforcer *casbin.SyncedEnforcer)
-	GetCasbin() map[string]*casbin.SyncedEnforcer
-	GetCasbinKey(key string) *casbin.SyncedEnforcer
 
 	// SetEngine 使用的路由
 	SetEngine(engine http.Handler)

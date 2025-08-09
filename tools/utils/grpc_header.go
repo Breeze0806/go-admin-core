@@ -2,10 +2,12 @@ package utils
 
 import (
 	"context"
+	"strings"
 
 	"github.com/google/uuid"
-	"google.golang.org/grpc/metadata"
 )
+
+type mdIncomingKey struct{}
 
 const (
 	// RequestIDKey requestID key
@@ -30,7 +32,7 @@ func GetUsername(ctx context.Context) string {
 
 // GetHeaderFirst get header first value
 func GetHeaderFirst(ctx context.Context, key string) string {
-	if md, ok := metadata.FromIncomingContext(ctx); ok {
+	if md, ok := FromIncomingContext(ctx); ok {
 		if values := md.Get(key); len(values) > 0 {
 			return values[0]
 		}
@@ -38,7 +40,25 @@ func GetHeaderFirst(ctx context.Context, key string) string {
 	return ""
 }
 
+// FromIncomingContext returns the incoming metadata in ctx if it exists.  The
+// returned MD should not be modified. Writing to it may cause races.
+// Modification should be made to copies of the returned MD.
+func FromIncomingContext(ctx context.Context) (md MD, ok bool) {
+	md, ok = ctx.Value(mdIncomingKey{}).(MD)
+	return
+}
+
 // NewRequestID generate a RequestId
 func NewRequestID() string {
 	return uuid.New().String()
+}
+
+// MD is a mapping from metadata keys to values. Users should use the following
+// two convenience functions New and Pairs to generate MD.
+type MD map[string][]string
+
+// Get obtains the values for a given key.
+func (md MD) Get(k string) []string {
+	k = strings.ToLower(k)
+	return md[k]
 }

@@ -1,21 +1,20 @@
 package runtime
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"sync"
 
-	"github.com/casbin/casbin/v2"
 	"github.com/Breeze0806/go-admin-core/logger"
 	"github.com/Breeze0806/go-admin-core/storage"
 	"github.com/Breeze0806/go-admin-core/storage/queue"
+
+	"github.com/gin-gonic/gin"
 	"github.com/robfig/cron/v3"
 	"gorm.io/gorm"
 )
 
 type Application struct {
 	dbs         map[string]*gorm.DB
-	casbins     map[string]*casbin.SyncedEnforcer
 	engine      http.Handler
 	crontab     map[string]*cron.Cron
 	mux         sync.RWMutex
@@ -62,26 +61,6 @@ func (e *Application) GetDbByKey(key string) *gorm.DB {
 	return e.dbs[key]
 }
 
-func (e *Application) SetCasbin(key string, enforcer *casbin.SyncedEnforcer) {
-	e.mux.Lock()
-	defer e.mux.Unlock()
-	e.casbins[key] = enforcer
-}
-
-func (e *Application) GetCasbin() map[string]*casbin.SyncedEnforcer {
-	return e.casbins
-}
-
-// GetCasbinKey 根据key获取casbin
-func (e *Application) GetCasbinKey(key string) *casbin.SyncedEnforcer {
-	e.mux.Lock()
-	defer e.mux.Unlock()
-	if e, ok := e.casbins["*"]; ok {
-		return e
-	}
-	return e.casbins[key]
-}
-
 // SetEngine 设置路由引擎
 func (e *Application) SetEngine(engine http.Handler) {
 	e.engine = engine
@@ -123,7 +102,6 @@ func (e *Application) GetLogger() logger.Logger {
 func NewConfig() *Application {
 	return &Application{
 		dbs:         make(map[string]*gorm.DB),
-		casbins:     make(map[string]*casbin.SyncedEnforcer),
 		crontab:     make(map[string]*cron.Cron),
 		middlewares: make(map[string]interface{}),
 		memoryQueue: queue.NewMemory(10000),
@@ -205,7 +183,6 @@ func (e *Application) GetQueueAdapter() storage.AdapterQueue {
 func (e *Application) GetQueuePrefix(key string) storage.AdapterQueue {
 	return NewQueue(key, e.queue)
 }
-
 
 func (e *Application) SetHandler(key string, routerGroup func(r *gin.RouterGroup, hand ...*gin.HandlerFunc)) {
 	e.mux.Lock()
